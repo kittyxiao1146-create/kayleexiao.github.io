@@ -1,0 +1,48 @@
+/* ============================================================
+   TYPOGRAPHY — Kaylee Xiao Design System
+   ============================================================ */
+
+:root {
+  /* ---------- Font families ---------- */
+
+  /* Rock Paper Scissors → Work Sans throughout */
+  --rps-font: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+              Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Portfolio display + text faces */
+  --site-display:  'Blackout Sunrise', sans-serif;   /* @kind font — big hero title */
+  --site-wordmark: 'Blackout Two Am', sans-serif;    /* @kind font — logo / name */
+  --site-nav:      'Blackout Midnight', sans-serif;  /* @kind font — nav links */
+  --site-heading:  'ChunkFive', Georgia, serif;      /* @kind font — section headings (h3) */
+  --site-body:     'League Spartan', system-ui, sans-serif; /* @kind font — body + subhead */
+
+  /* ---------- RPS type scale (px, from the game) ---------- */
+  --rps-text-display: 64px;  /* result word (Rock / WIN) — line-height 1.2 */
+  --rps-text-title:   40px;  /* screen result */
+  --rps-text-h2:      28px;  /* choice labels */
+  --rps-text-body:    24px;  /* prompts ("Make your decision!") */
+  --rps-text-label:   16px;  /* button labels, captions */
+  --rps-text-small:   12px;  /* small pills */
+
+  /* RPS letter-spacing on labels */
+  --rps-tracking-label: 0.2px;
+  --rps-tracking-caps:  0.6px;
+
+  /* ---------- Portfolio type scale (em-based, fluid) ---------- */
+  --site-text-hero:   8em;    /* cover title */
+  --site-text-h3:     2.5em;  /* section heading */
+  --site-text-h4:     1.6em;  /* sub heading */
+  --site-text-nav:    1.5em;  /* nav links */
+  --site-text-body:   1.2em;  /* paragraphs */
+
+  /* ---------- Weights ---------- */
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold: 600;
+  --weight-black:   900;
+
+  /* ---------- Line heights ---------- */
+  --leading-tight: 1.2;
+  --leading-snug:  1.35;
+  --leading-body:  1.5;
+}
