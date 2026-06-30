@@ -1,0 +1,59 @@
+/* ============================================================
+   FONTS — Kaylee Xiao Design System
+   Two type worlds:
+   1. Rock Paper Scissors (game)  →  Work Sans (Google Fonts)
+   2. Kaylee Xiao Portfolio       →  custom display faces (local .woff)
+   ============================================================ */
+
+/* --- Rock Paper Scissors: Work Sans --- */
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap');
+
+/* --- Portfolio display + text faces (local) --- */
+
+/* Blackout family — heavy stencil display, used for the wordmark + nav */
+@font-face {
+  font-family: 'Blackout Sunrise';
+  src: url('../assets/fonts/blackout_sunrise-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Blackout Midnight';
+  src: url('../assets/fonts/blackout_midnight-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Blackout Two Am';
+  src: url('../assets/fonts/blackout_two_am-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ChunkFive — slab-serif, section headings */
+@font-face {
+  font-family: 'ChunkFive';
+  src: url('../assets/fonts/ChunkFive-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* League Spartan — geometric sans, body + sub-headings */
+@font-face {
+  font-family: 'League Spartan';
+  src: url('../assets/fonts/LeagueSpartan-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'League Spartan';
+  src: url('../assets/fonts/LeagueSpartan-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
