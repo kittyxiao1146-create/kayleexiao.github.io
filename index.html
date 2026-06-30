@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kaylee Xiao — Portfolio</title>
+<link rel="icon" href="assets/logos/kaylee-logo.svg" type="image/svg+xml">
+
+<!-- Design-system tokens + global styles -->
+<link rel="stylesheet" href="ds-styles.css">
+<!-- Morandi palette overrides (must come after the DS tokens) -->
+<link rel="stylesheet" href="morandi.css">
+
+<style>
+  /* responsive layout */
+  @media (max-width: 820px) {
+    .kx-two-col, .kx-hero-split, .kx-contact { grid-template-columns: 1fr !important; }
+    .kx-two-col > div[style*="order: 1"], .kx-two-col > div[style*="order: 2"] { order: 0 !important; }
+    .kx-entry { grid-template-columns: 1fr !important; gap: 10px !important; }
+  }
+  /* keep the floating-hero name from overflowing on small screens */
+  @media (max-width: 600px) {
+    .kx-contact { padding-left: 24px !important; padding-right: 24px !important; }
+  }
+
+  /* ============ interactive / artistic layer ============ */
+
+  /* scroll progress bar */
+  #kx-progress {
+    position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 100;
+    background: var(--site-selected); transform: scaleX(0); transform-origin: 0 50%;
+    pointer-events: none; opacity: .85;
+  }
+
+  /* film-grain texture overlay */
+  body::after {
+    content: ''; position: fixed; inset: 0; z-index: 3; pointer-events: none;
+    opacity: .04; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* scroll-reveal */
+  .kx-reveal { opacity: 0; transform: translateY(26px);
+    transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1); }
+  .kx-reveal.kx-in { opacity: 1; transform: none; }
+
+  /* kicker */
+  .kx-kicker { display: flex; align-items: center; gap: 12px; }
+
+  /* section images */
+  .kx-two-col img { transition: transform .6s cubic-bezier(.4,0,.2,1); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kx-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    body::after { display: none; }
+  }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- Design-system component bundle -->
+<script src="ds-bundle.js"></script>
+<!-- User-fillable image slots (portfolio thumbnails) -->
+<script src="image-slot.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Tweaks shell + site source -->
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="site-components.jsx"></script>
+  <script type="text/babel" src="site-home.jsx"></script>
+  <script type="text/babel" src="site-pages.jsx"></script>
+
+  <script type="text/babel" data-presets="react">
+    const { useState, useEffect } = React;
+    const useTw = window.useTweaks;
+    const TwPanel = window.TweaksPanel;
+    const TwSection = window.TweakSection;
+    const TwRadio = window.TweakRadio;
+    const TwToggle = window.TweakToggle;
+    const { KXHeader, KXFooter } = window;
+    const PAGES = {
+      Home: window.KXHome, About: window.KXAbout, Education: window.KXEducation,
+      Experiences: window.KXExperiences, Portfolio: window.KXPortfolio, Contact: window.KXContact,
+    };
+
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "hero": "float",
+      "palette": "sweet",
+      "dark": false
+    }/*EDITMODE-END*/;
+
+    const PALETTE_LABELS = { 'Sweet': 'sweet', 'Sage': 'sage', 'Dusty Blue': 'blue' };
+    const PALETTE_KEYS   = { sweet: 'Sweet', sage: 'Sage', blue: 'Dusty Blue' };
+    const HERO_LABELS = { 'Floating': 'float', 'Split': 'split', 'Minimal': 'minimal' };
+    const HERO_KEYS   = { float: 'Floating', split: 'Split', minimal: 'Minimal' };
+
+    function App() {
+      const [t, setTweak] = useTw(TWEAK_DEFAULTS);
+      const [page, setPage] = useState('Home');
+      const [open, setOpen] = useState(false);
+
+      // apply palette + dark mode to <html>
+      useEffect(() => {
+        const root = document.documentElement;
+        if (t.palette && t.palette !== 'sweet') root.setAttribute('data-palette', t.palette);
+        else root.removeAttribute('data-palette');
+        root.classList.toggle('site-dark', !!t.dark);
+      }, [t.palette, t.dark]);
+
+      // scroll to top on page change
+      useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, [page]);
+
+      const Page = PAGES[page] || PAGES.Home;
+      return (
+        <div>
+          <KXHeader page={page} setPage={setPage} open={open} setOpen={setOpen} />
+          <main><Page setPage={setPage} hero={t.hero} /></main>
+          <KXFooter setPage={setPage} />
+
+          <TwPanel>
+            <TwSection label="Homepage" />
+            <TwRadio label="Hero layout"
+              value={HERO_KEYS[t.hero] || 'Floating'}
+              options={['Floating', 'Split', 'Minimal']}
+              onChange={(v) => setTweak('hero', HERO_LABELS[v])} />
+            <TwSection label="Theme" />
+            <TwRadio label="Palette"
+              value={PALETTE_KEYS[t.palette] || 'Sweet'}
+              options={['Sweet', 'Sage', 'Dusty Blue']}
+              onChange={(v) => setTweak('palette', PALETTE_LABELS[v])} />
+            <TwToggle label="Dark mode" value={!!t.dark}
+              onChange={(v) => setTweak('dark', v)} />
+          </TwPanel>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+
+  <!-- interactive / artistic enhancements -->
+  <script>
+  (function () {
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var bar = document.createElement('div');
+    bar.id = 'kx-progress';
+    document.body.appendChild(bar);
+    function onScroll() {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.transform = 'scaleX(' + (max > 0 ? (h.scrollTop / max) : 0) + ')';
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+
+    var SEL = '.kx-two-col, .kx-entry, .kx-portfolio-grid > div, .kx-kicker';
+    function revealAll() {
+      document.querySelectorAll('.kx-reveal').forEach(function (el) { el.classList.add('kx-in'); });
+    }
+    // hard fallbacks: if reduced motion or no IO support, just show everything
+    if (reduce || typeof IntersectionObserver !== 'function') {
+      var mo0 = new MutationObserver(revealAll);
+      mo0.observe(document.getElementById('root'), { childList: true, subtree: true });
+      revealAll();
+      return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('kx-in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
+
+    function passedLine(el) {
+      var r = el.getBoundingClientRect();
+      return r.top < (window.innerHeight || 0) * 0.93;
+    }
+    function revealInView() {
+      document.querySelectorAll('.kx-reveal:not(.kx-in)').forEach(function (el) {
+        if (passedLine(el)) el.classList.add('kx-in');
+      });
+    }
+    function revealAll() {
+      document.querySelectorAll('.kx-reveal:not(.kx-in)').forEach(function (el) {
+        el.classList.add('kx-in');
+      });
+    }
+    function scan() {
+      document.querySelectorAll(SEL).forEach(function (el) {
+        if (el.dataset.kxr) return;
+        el.dataset.kxr = '1';
+        el.classList.add('kx-reveal');
+        var parent = el.parentElement;
+        if (parent && parent.classList.contains('kx-portfolio-grid')) {
+          var idx = Array.prototype.indexOf.call(parent.children, el);
+          el.style.transitionDelay = ((idx % 3) * 90) + 'ms';
+        }
+        io.observe(el);
+      });
+      requestAnimationFrame(revealInView);
+      // safety net: nothing stays permanently hidden even if scroll/IO never fire
+      clearTimeout(window.__kxSafe);
+      window.__kxSafe = setTimeout(revealAll, 1800);
+    }
+
+    window.addEventListener('scroll', revealInView, { passive: true });
+    window.addEventListener('resize', revealInView);
+
+    var root = document.getElementById('root');
+    var t;
+    new MutationObserver(function () {
+      clearTimeout(t); t = setTimeout(scan, 80);
+    }).observe(root, { childList: true, subtree: true });
+    scan();
+  })();
+  </script>
+
+  <!-- bundler splash -->
+  <template id="__bundler_thumbnail">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" fill="#ECE0D3"/>
+      <text x="50" y="60" font-family="Georgia, serif" font-size="44" fill="#B47C6A"
+        text-anchor="middle">KX</text>
+    </svg>
+  </template>
+</body>
+</html>
