@@ -1,0 +1,155 @@
+/* ============================================================
+   MORANDI PALETTE OVERRIDES — Kaylee Xiao portfolio
+   Muted, dusty, low-saturation tones with a soft, sweet warmth.
+   Overrides the design-system --site-* tokens. Three palettes,
+   each with a light + dark mode. Default = "Sweet" (rose+sage+cream).
+   Switched via data-palette on <html>; dark via .site-dark.
+   ============================================================ */
+
+/* ---------------- SWEET (default) · LIGHT ---------------- */
+:root {
+  --site-bg:            #EFE6DB;
+  --site-cover-bg:      #ECE0D3;
+  --site-text:          #4C4039;
+  --site-nav-bg:        #D9C5B9;
+  --site-icon:          #4C4039;
+  --site-selected:      #B47C6A;
+  --site-scrolled:      #E3D6C9;
+  --site-container:     #E5D9CC;
+  --site-container2:    #CFD6C8;
+  --site-link:          #A07A6A;
+  --site-link-hover-bg: #C99C8B;
+  --site-footer:        #C2A693;
+  --site-cover-bg:      #ECE0D3;
+  --site-highlight:     #E7C3A2;
+  --site-form-bg:       #CBB9AB;
+  --site-accent:        #B07C6B;
+  --site-accent-press:  #94604F;
+  --site-field-bg:      #F8F2EA;
+  --site-field-border:  #D6C5B7;
+}
+/* ---------------- SWEET · DARK ---------------- */
+:root.site-dark {
+  --site-bg:            #3B3733;
+  --site-cover-bg:      #403A35;
+  --site-text:          #EFE4D8;
+  --site-nav-bg:        #4D453F;
+  --site-icon:          #EFE4D8;
+  --site-selected:      #E0B49F;
+  --site-scrolled:      #47413B;
+  --site-container:     #463F3A;
+  --site-container2:    #3E443C;
+  --site-link:          #E4CFC1;
+  --site-link-hover-bg: #6B5C52;
+  --site-footer:        #2E2B27;
+  --site-highlight:     #C99B79;
+  --site-form-bg:       #524841;
+  --site-accent:        #BC8270;
+  --site-accent-press:  #9E6553;
+  --site-field-bg:      #4A433D;
+  --site-field-border:  #685C53;
+}
+
+/* ---------------- SAGE & STONE · LIGHT ---------------- */
+:root[data-palette="sage"] {
+  --site-bg:            #E7E6DE;
+  --site-cover-bg:      #DEE0D6;
+  --site-text:          #43463E;
+  --site-nav-bg:        #CFD2C5;
+  --site-icon:          #43463E;
+  --site-selected:      #7E9079;
+  --site-scrolled:      #DADBD0;
+  --site-container:     #DBDDD0;
+  --site-container2:    #D5CFC4;
+  --site-link:          #6E7E69;
+  --site-link-hover-bg: #92A287;
+  --site-footer:        #9DA793;
+  --site-highlight:     #C9C19E;
+  --site-form-bg:       #BAC2B0;
+  --site-accent:        #7E9079;
+  --site-accent-press:  #62755E;
+  --site-field-bg:      #F4F4EE;
+  --site-field-border:  #C6C8BB;
+}
+/* ---------------- SAGE & STONE · DARK ---------------- */
+:root[data-palette="sage"].site-dark {
+  --site-bg:            #383A35;
+  --site-cover-bg:      #3D3F39;
+  --site-text:          #E8E8DF;
+  --site-nav-bg:        #474A40;
+  --site-icon:          #E8E8DF;
+  --site-selected:      #AEC0A6;
+  --site-scrolled:      #43453E;
+  --site-container:     #42453D;
+  --site-container2:    #3F423C;
+  --site-link:          #C9D3BF;
+  --site-link-hover-bg: #5F6A58;
+  --site-footer:        #2C2E29;
+  --site-highlight:     #ADA67F;
+  --site-form-bg:       #4C4F45;
+  --site-accent:        #8B9D83;
+  --site-accent-press:  #6E7F66;
+  --site-field-bg:      #45473F;
+  --site-field-border:  #5E6256;
+}
+
+/* ---------------- DUSTY BLUE & CLAY · LIGHT ---------------- */
+:root[data-palette="blue"] {
+  --site-bg:            #E8E4DF;
+  --site-cover-bg:      #DEE2E3;
+  --site-text:          #41454A;
+  --site-nav-bg:        #CCD3D6;
+  --site-icon:          #41454A;
+  --site-selected:      #7E94A3;
+  --site-scrolled:      #DCDDDB;
+  --site-container:     #DCE1E2;
+  --site-container2:    #E0D3C8;
+  --site-link:          #6C828F;
+  --site-link-hover-bg: #90A4B0;
+  --site-footer:        #A2A8AC;
+  --site-highlight:     #D7B49B;
+  --site-form-bg:       #B8C2C7;
+  --site-accent:        #80949F;
+  --site-accent-press:  #61757F;
+  --site-field-bg:      #F5F5F2;
+  --site-field-border:  #C3C9CB;
+}
+/* ---------------- DUSTY BLUE & CLAY · DARK ---------------- */
+:root[data-palette="blue"].site-dark {
+  --site-bg:            #353839;
+  --site-cover-bg:      #393D3F;
+  --site-text:          #E6E7E5;
+  --site-nav-bg:        #444A4C;
+  --site-icon:          #E6E7E5;
+  --site-selected:      #A6BAC6;
+  --site-scrolled:      #3F4142;
+  --site-container:     #3D4143;
+  --site-container2:    #44403B;
+  --site-link:          #BCCAD2;
+  --site-link-hover-bg: #586770;
+  --site-footer:        #2A2D2E;
+  --site-highlight:     #C79E82;
+  --site-form-bg:       #474B4D;
+  --site-accent:        #889BA6;
+  --site-accent-press:  #6A7D88;
+  --site-field-bg:      #424547;
+  --site-field-border:  #595E60;
+}
+
+/* ---------------- base ---------------- */
+html, body { margin: 0; }
+body {
+  background-color: var(--site-bg);
+  font-family: var(--site-body);
+  color: var(--site-text);
+}
+
+/* responsive nav */
+@media (max-width: 760px) {
+  .kx-burger { display: inline-flex !important; }
+  .kx-nav {
+    display: none !important; width: 100%; flex-direction: column;
+    gap: 4px !important; margin-top: 10px;
+  }
+  .kx-nav[data-open="true"] { display: flex !important; }
+}
