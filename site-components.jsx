@@ -100,18 +100,18 @@ function Header({ page, setPage, open, setOpen }) {
 function Cover({ title, img, sub, layered, slotId, slotPlaceholder, big }) {
   if (layered) {
     const media = slotId
-      ? <image-slot id={slotId} src={img} shape="rect"
+      ? <image-slot id={slotId} src={img} shape="rect" className="kx-hero-portrait"
           placeholder={slotPlaceholder || 'Drop your photo here'}
           style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)',
             zIndex: 2, display: 'block', height: '92%', width: 'auto', maxWidth: '96vw' }}></image-slot>
-      : <img src={img} alt={title} style={{ position: 'absolute', bottom: 0, left: '50%',
+      : <img src={img} alt={title} className="kx-hero-portrait" style={{ position: 'absolute', bottom: 0, left: '50%',
           transform: 'translateX(-50%)', zIndex: 2, height: '92%', width: 'auto', maxWidth: 'none',
           objectFit: 'contain', objectPosition: 'bottom' }} />;
     return (
       <div style={{ position: 'relative', height: 'calc(100dvh - var(--kx-header-h, 64px))',
         minHeight: 460, background: 'var(--site-cover-bg)', overflow: 'hidden',
         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <h2 style={{ position: 'absolute', zIndex: 1, margin: 0, fontFamily: 'var(--site-display)',
+        <h2 className="kx-hero-name" style={{ position: 'absolute', zIndex: 1, margin: 0, fontFamily: 'var(--site-display)',
           fontSize: 'clamp(64px,15vw,180px)', letterSpacing: '.05em', color: 'var(--site-text)',
           textAlign: 'center', lineHeight: .9, top: '50%', transform: 'translateY(-50%)', width: '100%' }}>{title}</h2>
         {img && media}
